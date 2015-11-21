@@ -1,0 +1,28 @@
+{% extends 'blog/base.html' %}
+
+    {% block content %}
+        <div class="post">
+            {% if post.published_date %}
+                <div class="date">
+                    {{ post.published_date }}
+                </div>
+            {% endif %}
+            <h1>{{ post.title }}</h1>
+            <p>{{ post.text|linebreaks }}</p>
+        </div>
+
+<h1>Comments</h1>
+{% for comment in comments %}
+        <div>
+            <p>published: {{ comment.created_date }}</p>
+
+            <p>{{ comment.text|linebreaks }}</p>
+        </div>
+    {% endfor %}
+
+<h1>New Comment</h1>
+        <form method="POST" class="post-form">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="save btn btn-default">Save</button>
+        </form>
+    {% endblock %}
